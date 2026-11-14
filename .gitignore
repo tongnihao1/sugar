@@ -1,5 +1,7 @@
 # 自检截图，不进仓库
 _shots/
+# 改造前的旧版本备份，不进仓库
+_backup/
 # 系统杂项
 Thumbs.db
 .DS_Store

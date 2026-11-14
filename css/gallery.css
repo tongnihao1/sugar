@@ -113,7 +113,7 @@ body.is-focus{cursor:default}
 /* 相纸 */
 .print{
   position:absolute;left:var(--x,50%);top:var(--y,50%);
-  width:min(var(--w,17vw),18vh);
+  width:min(var(--w,17vw),20vh);
   font-family:var(--sans);
   padding:.6rem .6rem 2.1rem;
   background:linear-gradient(168deg,var(--paper),#F1E6D8);
@@ -136,7 +136,10 @@ body.is-focus{cursor:default}
     box-shadow .42s ease;
   will-change:transform,opacity;
 }
+.print[hidden]{display:none}
 .print.in{opacity:1;transform:translate(-50%,-50%) rotate(var(--r,0deg)) translateZ(var(--z,0px)) scale(1)}
+/* 不在这一批里的相纸：留在渲染树上，只把不透明度收掉，切回来时过渡才不会断 */
+.print.is-out{opacity:0 !important;pointer-events:none;transform:translate(-50%,-50%) rotate(var(--r,0deg)) translateZ(var(--z,0px)) scale(.84)}
 .print:hover{box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 32px 52px -18px rgba(0,0,0,.8),0 10px 20px -8px rgba(0,0,0,.6)}
 .print:hover .cap{color:#3F241E}
 .print:focus-visible{outline:2px solid var(--mint);outline-offset:4px}
@@ -201,7 +204,7 @@ body.is-focus{cursor:default}
   .title h1{font-size:1.45rem}
   .title .sub{font-size:.82rem}
   .reshuffle{order:2;margin-left:auto}
-  .print{width:min(var(--w,17vw),18vh);padding:.42rem .42rem 1.55rem}
+  .print{width:min(var(--w,17vw),15vh);padding:.42rem .42rem 1.55rem}
   .print .cap{font-size:.68rem;bottom:.38rem;left:.5rem;right:.5rem}
   .print.is-star{width:min(86vw,62vh);top:50%}
   .hint{flex-direction:column;align-items:flex-start;gap:.35rem;padding:10px 16px calc(10px + env(safe-area-inset-bottom))}

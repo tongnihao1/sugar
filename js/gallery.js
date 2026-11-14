@@ -15,10 +15,19 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(pointer: fine)').matches;
 
-  // 八个落点：桌面与窄屏各一套，先定槽位再抖动，避免照片叠成一堆
-  var DESKTOP_SLOTS = [[18, 23], [50, 24], [82, 22], [26, 50], [58, 51], [90, 49], [27, 76], [63, 75]];
-  var MOBILE_SLOTS = [[27, 15], [71, 16], [27, 36], [71, 37], [27, 58], [71, 59], [27, 76], [71, 75]];
+  // 一次撒九张：桌面 3 列 3 排、窄屏 3 列 3 排，先定槽位再抖动，避免照片叠成一堆
+  var DESKTOP_SLOTS = [
+    [13, 25], [32, 26], [50, 24], [68, 25], [87, 26],
+    [22, 75], [41, 76], [60, 74], [79, 75]
+  ];
+  var MOBILE_SLOTS = [
+    [20, 18], [50, 19], [80, 18],
+    [20, 50], [50, 51], [80, 50],
+    [20, 82], [50, 83], [80, 82]
+  ];
 
+  var SHOW = 9;
+  var pool = [];
   var order = [];
   var star = null;
 
@@ -37,22 +46,34 @@
 
   function isMobile() { return window.innerWidth < 760; }
 
+  // 每批都从还没露过面的照片里挑，"再撒一次"会换到另外九张
+  function nextBatch() {
+    if (pool.length < SHOW) pool = shuffle(prints);
+    return pool.splice(0, SHOW);
+  }
+
   function scatter() {
     var slots = (isMobile() ? MOBILE_SLOTS : DESKTOP_SLOTS).slice();
-    var jx = isMobile() ? 2.5 : 3;
-    var jy = isMobile() ? 3.5 : 3.5;
-    var cards = shuffle(prints);
-    order = cards.slice();
+    var jx = isMobile() ? 2 : 2.5;
+    var jy = 1.5;
+    var batch = nextBatch();
+    order = batch;
 
-    cards.forEach(function (el, i) {
+    prints.forEach(function (el) {
+      el.classList.add('is-out');
+      el.classList.remove('in');
+    });
+
+    batch.forEach(function (el, i) {
       var s = slots[i % slots.length];
-      var w = isMobile() ? rand(28, 31) : rand(12.5, 15.5);
+      var w = isMobile() ? rand(25, 28) : rand(14, 17.5);
+      el.classList.remove('is-out');
       el.style.setProperty('--x', (s[0] + rand(-jx, jx)).toFixed(1) + '%');
       el.style.setProperty('--y', (s[1] + rand(-jy, jy)).toFixed(1) + '%');
       el.style.setProperty('--w', w.toFixed(1) + 'vw');
       el.style.setProperty('--r', rand(-6.5, 6.5).toFixed(1) + 'deg');
       el.style.setProperty('--z', Math.round(rand(-90, 90)) + 'px');
-      el.style.setProperty('--d', (i * 46) + 'ms');
+      el.style.setProperty('--d', (i * 40) + 'ms');
       // 上排压在下排之上：caption 不被遮住
       el.style.zIndex = String(100 - i);
       el.dataset.z = String(100 - i);
@@ -62,22 +83,22 @@
   }
 
   function updateCounter() {
-    if (star) {
-      counter.textContent = pad(order.indexOf(star) + 1) + ' / ' + pad(prints.length);
+    if (star && order.indexOf(star) !== -1) {
+      counter.textContent = pad(order.indexOf(star) + 1) + ' / ' + pad(order.length);
     } else {
-      counter.textContent = pad(1) + ' / ' + pad(prints.length);
+      counter.textContent = pad(1) + ' / ' + pad(order.length);
     }
   }
 
   function dropIn() {
     if (reduce) {
-      prints.forEach(function (el) { el.classList.add('in'); });
+      order.forEach(function (el) { el.classList.add('in'); });
       return;
     }
     prints.forEach(function (el) { el.classList.remove('in'); });
     void deck.offsetWidth;
     requestAnimationFrame(function () {
-      prints.forEach(function (el) { el.classList.add('in'); });
+      order.forEach(function (el) { el.classList.add('in'); });
     });
   }
 
@@ -144,10 +165,7 @@
   reshuffleBtn.addEventListener('click', function () {
     unfocus();
     scatter();
-    if (reduce) return;
-    requestAnimationFrame(function () {
-      prints.forEach(function (el) { el.classList.add('in'); });
-    });
+    dropIn();
   });
 
   // 指针倾斜：整盘跟着轻微歪，diverging 的 translateZ 自带视差
@@ -172,6 +190,7 @@
       if (!star) return;
       ev.preventDefault();
       var i = order.indexOf(star);
+      if (i === -1) return;
       var step = ev.key === 'ArrowRight' ? 1 : -1;
       focusCard(order[(i + step + order.length) % order.length]);
       return;
@@ -180,6 +199,7 @@
       if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
       unfocus();
       scatter();
+      dropIn();
     }
   });
 
@@ -190,6 +210,7 @@
     if (m !== lastMobile) {
       lastMobile = m;
       scatter();
+      dropIn();
     }
   });
 
