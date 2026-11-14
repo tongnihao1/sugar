@@ -1,0 +1,5 @@
+# 自检截图，不进仓库
+_shots/
+# 系统杂项
+Thumbs.db
+.DS_Store

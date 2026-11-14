@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于 · 博物馆</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: radial-gradient(circle at 20% 30%, #f7efe6, #e5d9ce);
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .museum {
+      max-width: 1100px;
+      width: 100%;
+      background: rgba(255, 250, 242, 0.55);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-radius: 64px;
+      padding: 2.5rem 2.8rem;
+      box-shadow: 0 40px 80px -24px rgba(0,0,0,0.12), 0 8px 32px rgba(255,215,175,0.10);
+      border: 1px solid rgba(255,235,215,0.30);
+    }
+    .nav-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+      justify-content: center;
+      border-bottom: 1px solid rgba(200,175,155,0.18);
+      padding-bottom: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .nav-btn {
+      background: rgba(245,235,225,0.25);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(200,170,150,0.2);
+      border-radius: 60px;
+      padding: 0.5rem 1.4rem;
+      font-size: 0.9rem;
+      font-weight: 420;
+      color: #3d2c1e;
+      text-decoration: none;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .nav-btn i { opacity: 0.6; font-size: 0.9rem; }
+    .nav-btn:hover {
+      background: rgba(235,215,195,0.35);
+      transform: translateY(-2px);
+      border-color: rgba(180,140,110,0.35);
+    }
+    .nav-btn.active {
+      background: linear-gradient(145deg, #f0d5ba, #e2bea1);
+      border-color: rgba(200,160,130,0.4);
+      box-shadow: 0 6px 16px rgba(180,130,90,0.10);
+    }
+    .page-card {
+      background: rgba(250, 245, 238, 0.30);
+      backdrop-filter: blur(4px);
+      border-radius: 40px;
+      padding: 1.8rem 2.2rem;
+      border: 1px solid rgba(255,235,215,0.25);
+      box-shadow: inset 0 2px 8px rgba(255,255,255,0.25);
+    }
+    h2 {
+      font-weight: 360;
+      font-size: 2rem;
+      color: #2d241b;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    h2 i { opacity: 0.6; font-size: 1.6rem; }
+    hr { border: none; border-top: 1px solid rgba(200,175,155,0.15); margin: 1.2rem 0; }
+    .footer-tip {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #8a7766;
+      text-align: center;
+      border-top: 1px solid rgba(200,175,155,0.15);
+      padding-top: 1.2rem;
+    }
+    @media (max-width: 700px) {
+      .museum { padding: 1.5rem 1.2rem; border-radius: 40px; }
+      .nav-btn { padding: 0.4rem 1rem; font-size: 0.8rem; }
+      .page-card { padding: 1.2rem 1rem; }
+      h2 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="museum">
+  <div class="nav-grid">
+    <a href="index.html" class="nav-btn"><i class="fas fa-heart"></i> 首页·爱</a>
+    <a href="page-ex.html" class="nav-btn"><i class="fas fa-user-slash"></i> 前任过往</a>
+    <a href="page-exlist.html" class="nav-btn"><i class="fas fa-list-ul"></i> 前任名单</a>
+    <a href="page-footprints.html" class="nav-btn"><i class="fas fa-map-pin"></i> 足迹</a>
+    <a href="page-gallery.html" class="nav-btn"><i class="fas fa-images"></i> 影像</a>
+    <a href="page-letters.html" class="nav-btn"><i class="fas fa-envelope"></i> 信件</a>
+    <a href="page-moments.html" class="nav-btn"><i class="fas fa-star"></i> 高光</a>
+    <a href="page-playlist.html" class="nav-btn"><i class="fas fa-music"></i> 歌单</a>
+    <a href="page-timeline.html" class="nav-btn"><i class="fas fa-clock"></i> 时间轴</a>
+    <a href="page-about.html" class="nav-btn active"><i class="fas fa-info-circle"></i> 关于</a>
+  </div>
+
+  <div class="page-card">
+    <h2><i class="fas fa-info-circle"></i> 关于 · 博物馆</h2>
+    <p style="color:#3d2c1e; margin-bottom:0.8rem;">这个站点收藏了关于“爱”的多种面向 —— 甜蜜、遗憾、成长、足迹。</p>
+    <p style="color:#4f3f31;">共10个页面，每一页都是记忆的一个切面。设计上保持柔和、叙事感，让浏览本身成为一次安静的回顾。</p>
+    <hr>
+    <div style="display:flex; gap:1.5rem; flex-wrap:wrap; font-size:0.9rem; color:#5f4a38;">
+      <span><i class="fas fa-code"></i> 纯前端 · 2026</span>
+      <span><i class="fas fa-heart" style="color:#d68b7a;"></i> 致所有温柔</span>
+    </div>
+  </div>
+  <div class="footer-tip"><i class="fas fa-chevron-left" style="opacity:0.3;"></i> 共10个篇章 · 点击导航切换 <i class="fas fa-chevron-right" style="opacity:0.3;"></i></div>
+</div>
+</body>
+</html>

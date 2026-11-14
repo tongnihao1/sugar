@@ -1,187 +1,218 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>爱情博物馆 · 首页</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    /* ===== 全局样式 ===== */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: radial-gradient(circle at 20% 30%, #f7efe6, #e5d9ce);
-      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-      min-height: 100vh;
-      padding: 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .museum {
-      max-width: 1100px;
-      width: 100%;
-      background: rgba(255, 250, 242, 0.55);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border-radius: 64px;
-      padding: 2.5rem 2.8rem;
-      box-shadow: 0 40px 80px -24px rgba(0,0,0,0.12), 0 8px 32px rgba(255,215,175,0.10);
-      border: 1px solid rgba(255,235,215,0.30);
-    }
-    /* 导航 */
-    .nav-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem 1rem;
-      justify-content: center;
-      border-bottom: 1px solid rgba(200,175,155,0.18);
-      padding-bottom: 1.2rem;
-      margin-bottom: 2rem;
-    }
-    .nav-btn {
-      background: rgba(245,235,225,0.25);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(200,170,150,0.2);
-      border-radius: 60px;
-      padding: 0.5rem 1.4rem;
-      font-size: 0.9rem;
-      font-weight: 420;
-      color: #3d2c1e;
-      text-decoration: none;
-      transition: all 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-    }
-    .nav-btn i { opacity: 0.6; font-size: 0.9rem; }
-    .nav-btn:hover {
-      background: rgba(235,215,195,0.35);
-      transform: translateY(-2px);
-      border-color: rgba(180,140,110,0.35);
-    }
-    .nav-btn.active {
-      background: linear-gradient(145deg, #f0d5ba, #e2bea1);
-      border-color: rgba(200,160,130,0.4);
-      box-shadow: 0 6px 16px rgba(180,130,90,0.10);
-    }
-    /* 页面卡片 */
-    .page-card {
-      background: rgba(250, 245, 238, 0.30);
-      backdrop-filter: blur(4px);
-      border-radius: 40px;
-      padding: 1.8rem 2.2rem;
-      border: 1px solid rgba(255,235,215,0.25);
-      box-shadow: inset 0 2px 8px rgba(255,255,255,0.25);
-    }
-    h2 {
-      font-weight: 360;
-      font-size: 2rem;
-      color: #2d241b;
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-    h2 i { opacity: 0.6; font-size: 1.6rem; }
-    .stat-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem 3rem;
-      margin: 1.2rem 0;
-    }
-    .stat-item { display: flex; flex-direction: column; }
-    .stat-number { font-size: 2rem; font-weight: 360; color: #2d241b; }
-    .stat-label { font-size: 0.8rem; color: #6a5544; }
-    .badge-light {
-      background: rgba(235,210,190,0.25);
-      padding: 0.2rem 1rem;
-      border-radius: 60px;
-      font-size: 0.75rem;
-      color: #4f3a2a;
-    }
-    hr { border: none; border-top: 1px solid rgba(200,175,155,0.15); margin: 1.2rem 0; }
-    .footer-tip {
-      margin-top: 2rem;
-      font-size: 0.8rem;
-      color: #8a7766;
-      text-align: center;
-      border-top: 1px solid rgba(200,175,155,0.15);
-      padding-top: 1.2rem;
-    }
-    .heart-icon { color: #d68b7a; }
-    .list-item {
-      background: rgba(245,235,225,0.20);
-      padding: 0.7rem 1.2rem;
-      border-radius: 60px;
-      border: 1px solid rgba(200,175,155,0.12);
-      margin-bottom: 0.6rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-    .list-item i { color: #b8a08c; width: 1.6rem; }
-    .footprint-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px,1fr));
-      gap: 1rem;
-    }
-    .footprint-item {
-      background: rgba(235,220,205,0.15);
-      border-radius: 30px;
-      padding: 1rem 0.6rem;
-      text-align: center;
-      border: 1px solid rgba(200,175,155,0.12);
-    }
-    .footprint-item i { font-size: 2rem; color: #b8a08c; margin-bottom: 0.3rem; }
-    .footprint-item .place { font-weight: 400; color: #2d241b; }
-    .footprint-item .date { font-size: 0.7rem; color: #6a5544; }
-    .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-    @media (max-width: 700px) { 
-      .grid-2col { grid-template-columns: 1fr; }
-      .museum { padding: 1.5rem 1.2rem; border-radius: 40px; }
-      .nav-btn { padding: 0.4rem 1rem; font-size: 0.8rem; }
-      .page-card { padding: 1.2rem 1rem; }
-      h2 { font-size: 1.6rem; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>糖霜小站 · 放一张照片，翻一段心事</title>
+<meta name="description" content="一个把本地照片留在本机的小站，照片不会上传到任何地方；顺带可以翻翻暧昧、恋爱和结婚幻想。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23FCE3EA'/%3E%3Cpath d='M16 24.5s-8.4-5.4-8.4-11.4A4.7 4.7 0 0116 10a4.7 4.7 0 018.4 3.1c0 6-8.4 11.4-8.4 11.4z' fill='%23DF6189'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://miaoda.feishu.cn" crossorigin>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=ZCOOL+XiaoWei&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="museum">
-  <!-- ===== 导航 ===== -->
-  <div class="nav-grid">
-    <a href="index.html" class="nav-btn active"><i class="fas fa-heart"></i> 首页·爱</a>
-    <a href="page-ex.html" class="nav-btn"><i class="fas fa-user-slash"></i> 前任过往</a>
-    <a href="page-exlist.html" class="nav-btn"><i class="fas fa-list-ul"></i> 前任名单</a>
-    <a href="page-footprints.html" class="nav-btn"><i class="fas fa-map-pin"></i> 足迹</a>
-    <a href="page-gallery.html" class="nav-btn"><i class="fas fa-images"></i> 影像</a>
-    <a href="page-letters.html" class="nav-btn"><i class="fas fa-envelope"></i> 信件</a>
-    <a href="page-moments.html" class="nav-btn"><i class="fas fa-star"></i> 高光</a>
-    <a href="page-playlist.html" class="nav-btn"><i class="fas fa-music"></i> 歌单</a>
-    <a href="page-timeline.html" class="nav-btn"><i class="fas fa-clock"></i> 时间轴</a>
-    <a href="page-about.html" class="nav-btn"><i class="fas fa-info-circle"></i> 关于</a>
-  </div>
+<div class="grain" aria-hidden="true"></div>
+<canvas id="sugarFall" aria-hidden="true"></canvas>
+<div class="glow-wrap" aria-hidden="true"><div class="cursor-glow" id="cursorGlow"></div></div>
 
-  <!-- ===== 首页内容 ===== -->
-  <div class="page-card">
-    <h2><i class="fas fa-heart heart-icon"></i> 爱情博物馆</h2>
-    <p style="font-size:1.1rem; color:#3d2c1e; margin-bottom:1.2rem;">每一段故事都值得被温柔收藏。</p>
-    <div class="stat-row">
-      <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">章节</span></div>
-      <div class="stat-item"><span class="stat-number">12</span><span class="stat-label">记忆碎片</span></div>
-      <div class="stat-item"><span class="stat-number">∞</span><span class="stat-label">心动瞬间</span></div>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="hero-kicker rise">一个人的小站</p>
+      <h1 class="rise rise-2">把日子<br>过成<span class="sweet">甜的</span></h1>
+      <p class="hero-lede rise rise-3">
+        把手机里舍不得删的照片拖进来，攒成一罐随时能翻的糖纸，它们只留在这台电脑上，
+        谁也不会看到。翻完照片，顺手往下翻翻心事：暧昧的、恋爱中的、还有那些只敢想的结婚画面。
+      </p>
+      <div class="hero-actions rise rise-4">
+        <a class="btn btn-primary" href="#photos">放一张照片</a>
+        <a class="btn btn-ghost" href="#moods">翻翻心事</a>
+        <a class="btn btn-ghost" href="page-gallery.html">撒一桌照片</a>
+      </div>
     </div>
-    <p style="color:#5f4a38; opacity:0.85;">点击导航探索所有页面：前任、足迹、影像、信件…… 每一页都是一段独白。</p>
-    <hr>
-    <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-      <span class="badge-light"><i class="far fa-calendar-alt"></i> 2026 · 夏</span>
-      <span class="badge-light"><i class="fas fa-feather-alt"></i> 细腻叙事</span>
+    <div class="hero-note rise rise-3">
+      <span class="tape"></span>
+      <p class="note-hand">今天也会是<br>甜甜的一天</p>
+      <p class="note-small">写在一百次想翘班的某个下午</p>
+      <div class="note-stamp">
+        <b id="stampDate">今天</b>
+        <span>宜发呆</span>
+      </div>
     </div>
   </div>
+</header>
 
-  <div class="footer-tip">
-    <i class="fas fa-chevron-left" style="opacity:0.3;"></i> 共10个篇章 · 点击导航切换 <i class="fas fa-chevron-right" style="opacity:0.3;"></i>
+<main>
+  <!-- ===== 视图：照片墙 ===== -->
+  <section class="section" id="photos">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>一罐糖纸</h2>
+        <p class="section-sub">
+          放你愿意留住的照片。图片会被压到长边 1400 像素再存进浏览器的本地数据库，
+          关掉页面也还在，但换台电脑就没了。
+        </p>
+        <span class="counter" id="photoCount">还没有照片</span>
+      </div>
+
+      <div class="uploader">
+        <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="选择本地照片，或把照片拖到这里">
+          <svg class="dz-candy" viewBox="0 0 64 64" aria-hidden="true">
+            <ellipse cx="16" cy="32" rx="11" ry="7" fill="#F4A98B" opacity=".55"/>
+            <ellipse cx="48" cy="32" rx="11" ry="7" fill="#F4A98B" opacity=".55"/>
+            <circle cx="32" cy="32" r="17" fill="#FFF3EF" stroke="#DF6189" stroke-width="1.6"/>
+            <path d="M32 40.5s-7.4-4.7-7.4-10.1A4.2 4.2 0 0132 27.6a4.2 4.2 0 017.4 2.8c0 5.4-7.4 10.1-7.4 10.1z" fill="#DF6189"/>
+          </svg>
+          <p class="dz-title">把照片拖到这里</p>
+          <p class="dz-sub">也可以点一下，一次选好几张。JPG、PNG、WEBP 都认，动图和高像素的会慢一点点</p>
+          <input type="file" id="fileInput" accept="image/*" multiple hidden>
+        </div>
+        <div class="note-card">
+          <span class="tape"></span>
+          <h3>放之前先说清楚三件事</h3>
+          <p>
+            照片不会传给任何人，也不会上传到云端，读取和缩放都在你自己的浏览器里完成。
+            清掉浏览器数据会一起清掉这罐糖纸，重要的话记得另存一份。
+          </p>
+          <div class="mini-facts">
+            <span class="fact">只存本机</span>
+            <span class="fact">长边压到 1400px</span>
+            <span class="fact">可随时取回</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wall" id="wall" aria-live="polite"></div>
+      <div class="wall-empty" id="wallEmpty">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="8" y="13" width="48" height="38" rx="4" fill="#FFF3EF" stroke="#DF6189" stroke-width="1.2" opacity=".9" transform="rotate(-4 32 32)"/>
+          <rect x="13" y="18" width="20" height="14" rx="2" fill="#FCE3EA" stroke="#F4A98B" stroke-width="1"/>
+          <rect x="30" y="34" width="18" height="12" rx="2" fill="#EAF4F0" stroke="#79C3AC" stroke-width="1"/>
+          <circle cx="46" cy="21" r="5" fill="#F7DE9E" opacity=".8"/>
+        </svg>
+        <p>罐子还是空的，先放一张进来吧</p>
+        <small>随手一张都行，晚霞、猫、外卖、出租房的窗台</small>
+        <button class="btn btn-primary" id="emptyPick" type="button">选第一张照片</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 视图：心事浏览 ===== -->
+  <section class="section" id="moods">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>糖罐里的心事</h2>
+        <p class="section-sub">
+          下面这 12 段心事是我编出来给你翻的，不指向谁，也不一定真的发生过。
+          可以搜、可以筛、可以收藏，点开看细节。
+        </p>
+      </div>
+
+      <div class="jobs-top">
+        <div class="jobs-tools">
+          <label class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>
+            </svg>
+            <input type="search" id="jobSearch" placeholder="搜一段心事、一个场景，或者一个地方" aria-label="搜索心事">
+          </label>
+          <div class="chips" id="typeChips" role="group" aria-label="按关系的阶段筛选">
+            <button class="chip is-on" type="button" data-stage="all">全部</button>
+            <button class="chip" type="button" data-stage="暧昧">暧昧</button>
+            <button class="chip" type="button" data-stage="恋爱中">恋爱中</button>
+            <button class="chip" type="button" data-stage="异地">异地</button>
+            <button class="chip" type="button" data-stage="吵架和好">吵架和好</button>
+            <button class="chip" type="button" data-stage="结婚幻想">结婚幻想</button>
+          </div>
+          <div class="tools-row">
+            <label class="field">按
+              <select id="jobSort" aria-label="排序方式">
+                <option value="new">刚刚发生</option>
+                <option value="sweet">甜度从高到低</option>
+                <option value="easy">最容易陷进去</option>
+              </select>
+            </label>
+            <button class="saved-toggle" id="savedToggle" type="button" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M12 20.2s-8-4.9-8-11A4.6 4.6 0 0112 6.6 4.6 4.6 0 0120 9.2c0 6.1-8 11-8 11z"/>
+              </svg>
+              只看收藏的
+            </button>
+          </div>
+        </div>
+
+        <aside class="chart-card">
+          <h3>甜度落在哪儿</h3>
+          <p class="chart-note">这 12 段心事的甜度分布，分数是编的</p>
+          <div id="payChart" aria-label="十二段心事的甜度分布"></div>
+        </aside>
+      </div>
+
+      <div class="job-list" id="jobList" aria-live="polite"></div>
+      <div class="list-empty" id="jobEmpty" hidden>
+        <p>没找到这样的心事</p>
+        <small>清掉筛选条件，就能看到全部 12 段</small>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <p class="foot-hand">愿你的每一天，都有糖的味道</p>
+    <p class="foot-note">
+      照片与收藏只保存在这台设备的浏览器里 · 心事为示例文案 · 页面不含任何上传接口
+    </p>
+    <button class="btn btn-ghost foot-top" id="toTop" type="button">回到最上面</button>
   </div>
+</footer>
+
+<!-- ===== 灯箱 ===== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="查看照片">
+  <figure>
+    <img id="lbImg" alt="">
+    <figcaption id="lbCaption"></figcaption>
+  </figure>
+  <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="关闭">×</button>
+  <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="上一张">‹</button>
+  <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="下一张">›</button>
 </div>
+
+<!-- ===== 心事详情抽屉 ===== -->
+<div class="scrim" id="scrim" hidden></div>
+<div class="drawer-shell">
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="心事详情">
+  <div class="drawer-head">
+    <button class="drawer-close" id="drawerClose" type="button" aria-label="关闭详情">×</button>
+    <div class="drawer-seal" id="drawerSeal">糖</div>
+    <h3 id="drawerTitle">心事</h3>
+    <p class="drawer-company" id="drawerCompany"></p>
+    <p class="drawer-pay" id="drawerPay"></p>
+  </div>
+  <div class="drawer-body">
+    <div>
+      <h4>这段时间会发生什么</h4>
+      <ul id="drawerDuties"></ul>
+    </div>
+    <div>
+      <h4>你大概会是这样</h4>
+      <ul id="drawerNeeds"></ul>
+    </div>
+    <div>
+      <h4>能尝到的一点甜</h4>
+      <div class="drawer-tags" id="drawerTags"></div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" id="drawerSave" type="button">收进罐子</button>
+    <button class="btn btn-primary" id="drawerApply" type="button">做一场这样的梦</button>
+  </div>
+</aside>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/main.js"></script>
+
 </body>
 </html>
