@@ -395,249 +395,8 @@
     if (e.target === lightbox) closeLightbox();
   });
 
-  /* ===== 心事样例（全部虚构，不指向任何人） ===== */
-  const MOMENTS = [
-    {
-      id: 'm01', stage: '暧昧', title: '每天等一句晚安', scene: '加班到十一点的那班地铁',
-      place: '成都 · 玉林', sweetMin: 8, sweetMax: 9.5, days: 3, need: 2, tone: 'rose',
-      tags: ['消息反复读', '头像看了三次', '舍不得先睡'],
-      beats: [
-        '十一点半那边发来一句「到了吗」，你回「刚到」，两个人都没肯先说晚安',
-        '输入框里的光标闪了又闪，你在想下一句要不要再俏皮一点',
-        '第二天翻聊天记录才发现，昨晚多聊了四十分钟'
-      ],
-      signs: [
-        '手机一响就去摸，摸到一半发现是外卖提醒',
-        '嘴上说没什么，备注已经改成了对方名字的缩写',
-        '开始在意今天穿什么'
-      ],
-      sweets: [
-        '那句晚安能笑到凌晨',
-        '路过面馆想进去坐',
-        '突然对明天有盼头'
-      ]
-    },
-    {
-      id: 'm02', stage: '暧昧', title: '一起听的那首歌', scene: '凌晨一点的语音',
-      place: '成都 · 玉林', sweetMin: 7.5, sweetMax: 9, days: 5, need: 1, tone: 'peach',
-      tags: ['耳机分给两个人', '歌单共享', '语音舍不得挂'],
-      beats: [
-        '对方说这首歌像你，你问哪里像，只说听完就知道了',
-        '语音挂了之后，你又自己循环了三遍',
-        '第二天两个人都装作没说过这句话'
-      ],
-      signs: [
-        '把提到过的歌全听了一遍',
-        '耳机一直连着，怕错过提示音',
-        '开始研究那份歌单里最旧的一首'
-      ],
-      sweets: [
-        '有人陪你听完一首歌',
-        '歌单多了一首专属',
-        '沉默也不尴尬'
-      ]
-    },
-    {
-      id: 'm03', stage: '暧昧', title: '那把多打过来的伞', scene: '下雨那天的小区门口',
-      place: '成都 · 高新区', sweetMin: 8, sweetMax: 9, days: 2, need: 1, tone: 'butter',
-      tags: ['故意走慢', '伞往你这边偏', '到了也没说再见'],
-      beats: [
-        '雨下起来的时候，伞递过来了，只说了一句反正顺路',
-        '路上走得比平时慢，谁都没提为什么',
-        '到楼下站了半分钟，才各自转身'
-      ],
-      signs: [
-        '开始盼着下雨',
-        '回家先把伞晾好，舍不得收进柜子',
-        '嘴上说就是顺路'
-      ],
-      sweets: [
-        '一个顺路甜一整天',
-        '开始每天看天气',
-        '伞舍不得收进柜'
-      ]
-    },
-    {
-      id: 'm04', stage: '恋爱中', title: '第一次牵手过马路', scene: '红灯前的那三十秒',
-      place: '成都 · 春熙路', sweetMin: 9, sweetMax: 10, days: 8, need: 2, tone: 'rose',
-      tags: ['手心出汗', '谁都没松开', '走慢了半条街'],
-      beats: [
-        '绿灯亮了还没松手，两个人就这么走完了整条街',
-        '你想说点轻松的，张了张嘴只笑出来',
-        '分开的时候说下次还这样走'
-      ],
-      signs: [
-        '一路上都在想手该不该动',
-        '回家把手洗了三遍还觉得发热',
-        '睡前反复回想那三十秒'
-      ],
-      sweets: [
-        '那只手的温度记很久',
-        '过马路自动去找手',
-        '一句「下次还这样」'
-      ]
-    },
-    {
-      id: 'm05', stage: '恋爱中', title: '同一碗冰粉两个人吃', scene: '夏天傍晚的小巷',
-      place: '成都 · 建设路', sweetMin: 8, sweetMax: 9, days: 12, need: 1, tone: 'mint',
-      tags: ['勺子换了三次', '红糖多糖', '吃到最后一勺'],
-      beats: [
-        '一个说你先吃，一个说一起吃，最后勺子换着用了三次',
-        '红糖溅到袖口，伸手去擦，擦到一半才觉得不好意思',
-        '碗见底的时候，两个人都说没那么甜'
-      ],
-      signs: [
-        '开始记得对方吃冰粉要多糖',
-        '点单时会自然地要两副勺子',
-        '夏天变得没那么难熬'
-      ],
-      sweets: [
-        '五块钱吃出半小时笑',
-        '夏天有了固定去处',
-        '风把话吹跑了也没事'
-      ]
-    },
-    {
-      id: 'm06', stage: '恋爱中', title: '记得你不吃香菜', scene: '周一中午的食堂',
-      place: '成都 · 高新区', sweetMin: 8.5, sweetMax: 9.5, days: 6, need: 1, tone: 'butter',
-      tags: ['提前跟老板交代', '顺手递纸巾', '没提这件事'],
-      beats: [
-        '端着两碗粉回来，一碗上面干干净净，没有香菜',
-        '只说了句「这碗是你的」',
-        '问了才知道，点单时特意跟老板交代过'
-      ],
-      signs: [
-        '那顿饭你吃得比平时慢',
-        '之后你也开始记对方爱吃什么',
-        '突然觉得被记住是件很轻又很重的事'
-      ],
-      sweets: [
-        '有人替你挡掉香菜',
-        '那碗粉比平时香',
-        '小事被记住更心软'
-      ]
-    },
-    {
-      id: 'm07', stage: '异地', title: '视频里那盏没关的灯', scene: '一千公里外的出租房',
-      place: '异地 · 一千公里', sweetMin: 6, sweetMax: 8, days: 20, need: 2, tone: 'berry',
-      tags: ['舍不得挂', '背景那盏灯', '时差两小时'],
-      beats: [
-        '视频接到一半，那边已经困了，还撑着说不困',
-        '你不肯先挂，那边那盏灯一直亮到凌晨',
-        '最后是手机没电，才断的'
-      ],
-      signs: [
-        '开始攒假期',
-        '听到那边的雨声也会安心',
-        '说话前先算一遍时差'
-      ],
-      sweets: [
-        '那盏灯像在替你陪',
-        '最期待晚上那半小时',
-        '有人在等你下线'
-      ]
-    },
-    {
-      id: 'm08', stage: '异地', title: '倒计时的车票', scene: '回家的第四趟高铁',
-      place: '异地 · 成都东站', sweetMin: 7, sweetMax: 9, days: 30, need: 3, tone: 'peach',
-      tags: ['提前两小时到站', '箱子塞了礼物', '出口找了三分钟'],
-      beats: [
-        '车还没进站，就开始盯着出口看',
-        '人群里找了三分钟，才认出那件外套',
-        '见面第一句是「怎么瘦了」，然后就笑了'
-      ],
-      signs: [
-        '一个月里最清醒的那天，是出发那天',
-        '车票攒在一个盒子里，舍不得扔',
-        '回程的路短得像假的'
-      ],
-      sweets: [
-        '站台三分钟抵一个月',
-        '箱子都是带的东西',
-        '有人在出口等你'
-      ]
-    },
-    {
-      id: 'm09', stage: '吵架和好', title: '把气话咽回去的那晚', scene: '深夜的便利店门口',
-      place: '成都 · 玉林', sweetMin: 5, sweetMax: 8, days: 4, need: 2, tone: 'berry',
-      tags: ['谁都没先低头', '一杯热豆浆', '第二天装作没事'],
-      beats: [
-        '两个人在便利店门口站了很久，谁都不说话',
-        '有人进去买了两杯热豆浆，递过来的时候手还在抖',
-        '第二天谁都没提昨晚的事，但语气软了'
-      ],
-      signs: [
-        '心里排练了十遍台词，见面一句也说不出',
-        '气到一半，又想起对方的好',
-        '发现比起赢，更怕真的走散'
-      ],
-      sweets: [
-        '热豆浆替你说完话',
-        '和好更懂对方重要',
-        '第二天还记得香菜'
-      ]
-    },
-    {
-      id: 'm10', stage: '结婚幻想', title: '婚礼上放哪首歌', scene: '反复听的歌单',
-      place: '想的 · 一场小婚礼', sweetMin: 9, sweetMax: 10, days: 15, need: 1, tone: 'rose',
-      tags: ['歌单存了三年', '想办三十人的', '不要闹酒'],
-      beats: [
-        '把那份歌单翻出来，一首一首试哪首适合走红毯',
-        '想了一下环节：不请司仪，让最好的朋友说两句',
-        '想到一半自己笑了，因为还没跟人说起过'
-      ],
-      signs: [
-        '刷到别人的婚礼视频会默默看完',
-        '开始留意小场地，甚至收藏了地址',
-        '连誓词都在手机备忘录里写了两行'
-      ],
-      sweets: [
-        '一首歌装下整画面',
-        '想象里阳光都对',
-        '有人做同一个梦'
-      ]
-    },
-    {
-      id: 'm11', stage: '结婚幻想', title: '客厅要有一扇大窗', scene: '想的那个小房子',
-      place: '想的 · 城南某栋', sweetMin: 8, sweetMax: 10, days: 25, need: 1, tone: 'mint',
-      tags: ['有窗才好晒太阳', '书架靠墙', '两个杯子'],
-      beats: [
-        '在心里画那间客厅：窗很大，下午的光落在沙发上',
-        '书架靠墙，两个杯子放一起，一个深色一个浅色',
-        '想到一半发现，缺的那部分最难，因为还没找到人'
-      ],
-      signs: [
-        '看房软件翻得比外卖还勤',
-        '已经开始挑窗帘的颜色',
-        '偶尔会为一个还没出现的人留位置'
-      ],
-      sweets: [
-        '没发生的下午也暖',
-        '窗书架两个杯子',
-        '想得越细越想等'
-      ]
-    },
-    {
-      id: 'm12', stage: '结婚幻想', title: '见家长时带点什么', scene: '家门口的那条巷子',
-      place: '想的 · 门前的巷子', sweetMin: 7.5, sweetMax: 9.5, days: 40, need: 2, tone: 'butter',
-      tags: ['水果要挑硬的', '先说好不吃辣', '出门换了三次衣服'],
-      beats: [
-        '提前一周开始想带什么：水果要挑硬一点的，别一进门就烂',
-        '在门口深吸一口气，手在衣服上擦了擦',
-        '饭桌上他们聊得很平常，你反而更紧张'
-      ],
-      signs: [
-        '把自己的家底在心里过了一遍',
-        '出门前换了三次衣服',
-        '突然理解了父母当年的那些唠叨'
-      ],
-      sweets: [
-        '一句多吃点就熟了',
-        '饭后装一盒菜带走',
-        '回来手一直牵着'
-      ]
-    }
-  ];
+  /* ===== 心事样例（全部虚构，不指向任何人）：数据在 js/moments.js ===== */
+  const MOMENTS = window.SUGAR_MOMENTS || [];
 
   const TONES = { rose: '#DF6189', berry: '#8F4E6C', mint: '#5FAF98', peach: '#E9906E', butter: '#D9B45C' };
   const HEART_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true" style="width:15px;height:15px;fill:currentColor">' +
@@ -730,13 +489,28 @@
     return el;
   }
 
+  const PAGE = 20;
+  let shown = PAGE;
+
+  const jobMore = document.createElement('button');
+  jobMore.type = 'button';
+  jobMore.className = 'btn btn-ghost more-btn';
+  jobMore.id = 'jobMore';
+  jobMore.hidden = true;
+  jobList.parentNode.insertBefore(jobMore, jobList.nextSibling);
+  jobMore.addEventListener('click', () => { shown += PAGE; renderJobs(); });
+
   function renderJobs() {
     const list = filterJobs();
     jobList.innerHTML = '';
     jobEmpty.hidden = list.length > 0;
+    const visible = list.slice(0, shown);
     const frag = document.createDocumentFragment();
-    list.forEach((j) => frag.appendChild(buildCard(j)));
+    visible.forEach((j) => frag.appendChild(buildCard(j)));
     jobList.appendChild(frag);
+    const rest = list.length - visible.length;
+    jobMore.hidden = rest <= 0;
+    if (rest > 0) jobMore.textContent = '再翻二十段（还剩 ' + rest + ' 段）';
   }
 
   function syncHearts() {
@@ -836,6 +610,7 @@
   const searchInput = $('#jobSearch');
   searchInput.addEventListener('input', () => {
     state.q = searchInput.value || '';
+    shown = PAGE;
     renderJobs();
   });
 
@@ -844,11 +619,13 @@
     if (!chip) return;
     $$('.chip', $('#typeChips')).forEach((c) => c.classList.toggle('is-on', c === chip));
     state.stage = chip.dataset.stage;
+    shown = PAGE;
     renderJobs();
   });
 
   $('#jobSort').addEventListener('change', (ev) => {
     state.sort = ev.target.value;
+    shown = PAGE;
     renderJobs();
   });
 
@@ -856,15 +633,16 @@
   savedToggle.addEventListener('click', () => {
     state.onlySaved = !state.onlySaved;
     savedToggle.setAttribute('aria-pressed', state.onlySaved ? 'true' : 'false');
+    shown = PAGE;
     renderJobs();
   });
 
   /* ===== 甜度分布小图表 ===== */
   const BUCKETS = [
-    { label: '7 分以下', min: -1, max: 7, color: '#F6C9BD' },
-    { label: '7–8 分', min: 7, max: 8, color: '#EFA3A6' },
-    { label: '8–9 分', min: 8, max: 9, color: '#DF6189' },
-    { label: '9 分以上', min: 9, max: 999, color: '#8F4E6C' }
+    { label: '8.7 分以下', min: -1, max: 8.7, color: '#F6C9BD' },
+    { label: '8.7–9.1', min: 8.7, max: 9.1, color: '#EFA3A6' },
+    { label: '9.1–9.5', min: 9.1, max: 9.5, color: '#DF6189' },
+    { label: '9.5 分以上', min: 9.5, max: 999, color: '#8F4E6C' }
   ];
 
   function sweetStats() {

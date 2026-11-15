@@ -44,6 +44,64 @@
 </header>
 
 <main>
+
+  <!-- ===== 视图：回忆相片条 ===== -->
+  <section class="section reel" id="reel">
+    <div class="wrap">
+      <div class="section-head reel-head">
+        <h2>那天山上的云</h2>
+        <p class="section-sub">
+          八张照片，其实就一天。左右翻一翻，像把那天再走一遍——雾、草坡、脚底下翻着的云。
+        </p>
+        <span class="counter" id="reelCount">01 / 08</span>
+      </div>
+
+      <div class="reel-stage" id="reelStage">
+        <div class="reel-track" id="reelTrack">
+          <figure class="reel-frame" data-cap="雾大到把我们两个都藏了起来">
+            <img src="image/moments/hy-01.jpg" alt="山顶的巨石上，一个穿蓝绿冲锋衣的人张开双臂，四周全是白雾">
+          </figure>
+          <figure class="reel-frame" data-cap="她一转身，雾就散了一点点">
+            <img src="image/moments/hy-02.jpg" alt="雾里转身回望，远处只有一片灰白">
+          </figure>
+          <figure class="reel-frame" data-cap="她说别动，我就把两臂都张开了">
+            <img src="image/moments/hy-03.jpg" alt="草坡上张开双臂仰起头，背后是电线塔的剪影">
+          </figure>
+          <figure class="reel-frame" data-cap="她走前头，我在后头数她的步子">
+            <img src="image/moments/hy-04.jpg" alt="草坡上的人手插口袋站着，远处雾里还有另一个人">
+          </figure>
+          <figure class="reel-frame" data-cap="整片天低低地压着，抬头就笑了">
+            <img src="image/moments/hy-05.jpg" alt="阴天下草坡上的身影，天占了画面大半">
+          </figure>
+          <figure class="reel-frame" data-cap="雾里有人等着，这条路就不难走">
+            <img src="image/moments/hy-06.jpg" alt="雾中的草坡，一个人侧身站着">
+          </figure>
+          <figure class="reel-frame" data-cap="一个在拍，一个在看，云在中间">
+            <img src="image/moments/hy-07.jpg" alt="岩石上一个人举着手机拍照，另一个人站在旁边">
+          </figure>
+          <figure class="reel-frame" data-cap="云在我们脚底下翻，甜得不像话">
+            <img src="image/moments/hy-08.jpg" alt="山路旁伸出大拇指，脚下是翻涌的云海和一座电线塔">
+          </figure>
+        </div>
+      </div>
+
+      <div class="reel-bar">
+        <button class="reel-nav" id="reelPrev" type="button" aria-label="上一张">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg>
+          <span>上一张</span>
+        </button>
+        <div class="reel-meta">
+          <p class="reel-cap" id="reelCap">雾大到把我们两个都藏了起来</p>
+          <div class="reel-dots" id="reelDots" role="tablist" aria-label="跳到某一张"></div>
+        </div>
+        <button class="reel-nav" id="reelNext" type="button" aria-label="下一张">
+          <span>下一张</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== 视图：照片墙 ===== -->
   <section class="section" id="photos">
     <div class="wrap">
@@ -104,7 +162,7 @@
       <div class="section-head">
         <h2>糖罐里的心事</h2>
         <p class="section-sub">
-          下面这 12 段心事是我编出来给你翻的，不指向谁，也不一定真的发生过。
+          下面这一百段心事是编出来给你翻的，五个阶段各二十段，不指向谁，也不一定真的发生过。
           可以搜、可以筛、可以收藏，点开看细节。
         </p>
       </div>
@@ -144,15 +202,15 @@
 
         <aside class="chart-card">
           <h3>甜度落在哪儿</h3>
-          <p class="chart-note">这 12 段心事的甜度分布，分数是编的</p>
-          <div id="payChart" aria-label="十二段心事的甜度分布"></div>
+          <p class="chart-note">这一百段心事的甜度分布，分数是编的</p>
+          <div id="payChart" aria-label="一百段心事的甜度分布"></div>
         </aside>
       </div>
 
       <div class="job-list" id="jobList" aria-live="polite"></div>
       <div class="list-empty" id="jobEmpty" hidden>
         <p>没找到这样的心事</p>
-        <small>清掉筛选条件，就能看到全部 12 段</small>
+        <small>清掉筛选条件，就能看到全部 100 段</small>
       </div>
     </div>
   </section>
@@ -213,6 +271,8 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script src="js/moments.js"></script>
+<script src="js/reel.js"></script>
 <script src="js/main.js"></script>
 
 </body>

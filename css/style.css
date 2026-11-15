@@ -1087,3 +1087,145 @@ img{display:block;max-width:100%}
   transition:opacity .25s ease,transform .3s cubic-bezier(.2,.8,.3,1);
 }
 .toast.is-show{opacity:1;transform:translate(-50%,0)}
+
+/* ===== 回忆相片条（首页轮播） ===== */
+.reel-stage{
+  position:relative;
+  margin-top:clamp(18px,3vw,30px);
+  height:clamp(320px,52vh,480px);
+  overflow:hidden;
+  border-radius:4px;
+  background:radial-gradient(120% 100% at 50% 0%, #2C1721 0%, #170B12 70%, #0D060A 100%);
+  box-shadow:0 24px 50px -30px rgba(60,42,46,.62), inset 0 1px 0 rgba(255,255,255,.07);
+}
+.reel-stage::before{
+  content:"";
+  position:absolute;inset:0;
+  z-index:1;pointer-events:none;
+  background:radial-gradient(66% 54% at 50% -8%, rgba(255,190,205,.15), transparent 72%);
+}
+.reel-track{
+  display:flex;
+  align-items:center;
+  gap:clamp(18px,3.4vw,40px);
+  height:100%;
+  padding:0 clamp(22px,4vw,54px);
+  will-change:transform;
+  transition:transform .62s cubic-bezier(.22,1,.36,1);
+}
+.reel-frame{
+  flex:0 0 auto;
+  height:calc(100% - 52px);
+  margin:0;
+  cursor:pointer;
+  opacity:.42;
+  filter:brightness(.6) saturate(.92);
+  transform:scale(.84);
+  transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .45s ease,filter .45s ease;
+}
+.reel-frame img{
+  display:block;
+  height:100%;
+  width:auto;
+  max-width:none;
+  padding:9px 9px 32px;
+  background:#F8F1E7;
+  box-shadow:0 22px 40px -22px rgba(0,0,0,.92);
+}
+.reel-frame:hover{opacity:.72;filter:brightness(.86)}
+.reel-frame.is-now{
+  opacity:1;
+  filter:none;
+  transform:scale(1) rotate(-.7deg);
+  z-index:3;
+  cursor:default;
+}
+.reel-frame.is-now img{box-shadow:0 30px 54px -26px rgba(0,0,0,.95)}
+
+.reel-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-top:clamp(14px,2.4vw,22px);
+}
+.reel-nav{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:9px 16px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:transparent;
+  color:var(--ink-2);
+  font-family:var(--sans);
+  font-size:.82rem;
+  font-weight:400;
+  cursor:pointer;
+  transition:border-color .2s,color .2s,background-color .2s;
+}
+.reel-nav svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none}
+.reel-nav:hover{border-color:var(--rose);color:var(--rose-deep);background:rgba(223,97,137,.07)}
+.reel-nav:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
+.reel-nav[disabled]{opacity:.42;cursor:default}
+
+.reel-meta{flex:1 1 auto;min-width:0;text-align:center}
+.reel-cap{
+  margin:0;
+  font-family:var(--hand);
+  font-size:clamp(.96rem,2.1vw,1.12rem);
+  letter-spacing:.04em;
+  color:var(--ink);
+}
+.reel-dots{display:flex;justify-content:center;gap:7px;margin-top:9px}
+.reel-dot{
+  width:22px;height:3px;
+  padding:0;border:0;border-radius:2px;
+  background:rgba(60,42,46,.2);
+  cursor:pointer;
+  transition:background-color .2s,width .25s;
+}
+.reel-dot[aria-selected="true"]{width:34px;background:var(--rose)}
+.reel-dot:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+
+@media (max-width:640px){
+  .reel-stage{height:clamp(250px,44vh,360px)}
+  .reel-frame{height:calc(100% - 36px)}
+  .reel-frame img{padding:7px 7px 24px}
+  .reel-bar{flex-wrap:wrap}
+  .reel-meta{order:-1;flex:1 0 100%;margin-bottom:12px}
+  .reel-cap{font-size:.94rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .reel-track,.reel-frame{transition:none}
+}
+
+/* 心事列表的「再翻二十段」 */
+#jobMore{
+  display:block;
+  width:max-content;
+  max-width:100%;
+  margin:26px auto 0;
+  font-size:.88rem;
+}
+#jobMore[hidden]{display:none}
+
+/* 舞台左右渐隐：两侧照片从暗处淡出，边缘不再硬切
+   ::after 的层级要低于 .reel-frame.is-now(3)，高于其余照片，所以当前张不受影响 */
+.reel-stage::after{
+  content:"";
+  position:absolute;inset:0;
+  z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,
+    rgba(13,6,10,.90) 0%, rgba(13,6,10,.52) 9%, transparent 22%,
+    transparent 78%, rgba(13,6,10,.52) 91%, rgba(13,6,10,.90) 100%);
+}
+@media (max-width:640px){
+  .reel-stage::after{
+    background:linear-gradient(90deg,
+      rgba(13,6,10,.58) 0%, transparent 15%,
+      transparent 85%, rgba(13,6,10,.58) 100%);
+  }
+}
