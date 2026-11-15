@@ -11,13 +11,18 @@
 
   var real = frames.length;
 
-  /* 把这些帧再复制一份接在后面：转到复制区时位置刚好对得上，接缝看不出来 */
-  frames.forEach(function (frame) {
+  function twin(frame) {
     var copy = frame.cloneNode(true);
     copy.classList.remove('is-now');
     copy.setAttribute('aria-hidden', 'true');
-    track.appendChild(copy);
-  });
+    return copy;
+  }
+
+  /* 前后各接一整份：无论转到哪一张，两侧都有照片，不会露出空白 */
+  frames.forEach(function (frame) { track.appendChild(twin(frame)); });
+  var head = frames[0];
+  frames.forEach(function (frame) { track.insertBefore(twin(frame), head); });
+
   frames = Array.prototype.slice.call(track.querySelectorAll('.reel-frame'));
 
   var prevBtn = document.getElementById('reelPrev');
@@ -29,20 +34,20 @@
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var DWELL = 2800;          /* 每张只停一会儿，看着像一直在转 */
   var SLIDE = 680;           /* 比过渡时长多留一点，等它滑稳再归位 */
-  var index = 0;
+  var index = real;          /* 落在中间那一份的第 1 张，前后都有照片垫着 */
   var timer = null;
   var held = false;
 
   /* 小圆点：跳到某一张 */
   var dots = [];
-  frames.slice(0, real).forEach(function (frame, i) {
+  frames.slice(real, real * 2).forEach(function (frame, i) {
     var dot = document.createElement('button');
     dot.type = 'button';
     dot.className = 'reel-dot';
     dot.setAttribute('role', 'tab');
     dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
     dot.setAttribute('aria-label', '第 ' + (i + 1) + ' 张');
-    dot.addEventListener('click', function () { go(i, true); });
+    dot.addEventListener('click', function () { go(real + i, true); });
     dotsEl.appendChild(dot);
     dots.push(dot);
   });
@@ -78,16 +83,16 @@
     shift(centerOf(index), animate);
   }
 
-  /* 转进复制区之后无声归位：那一张在两边位置完全一样，看不出切换 */
+  /* 转出中间那一份后无声归位：前后两份与中间逐像素一致，看不出切换 */
   function settle() {
-    if (index >= real) { index -= real; render(false); }
-    else if (index < 0) { index += real; render(false); }
+    if (index >= real * 2) { index -= real; render(false); }
+    else if (index < real) { index += real; render(false); }
   }
 
   function go(i, byUser) {
-    /* 连着猛点可能叠出去两圈，先落回一圈内 */
-    if (i >= real * 2 || i <= -real) {
-      index = i % real;
+    /* 连着猛点可能叠出界，先落回中间那一份 */
+    if (i >= real * 3 || i < 0) {
+      index = ((i % real) + real) % real + real;
       render(false);
       i = index;
     }
@@ -110,11 +115,7 @@
   }
   function restart() { start(); }
 
-  prevBtn.addEventListener('click', function () {
-    /* 从第一张往回翻时，先无声落到复制区，再往左滑一张 */
-    if (index <= 0) { index = real; render(false); }
-    go(index - 1, true);
-  });
+  prevBtn.addEventListener('click', function () { go(index - 1, true); });
   nextBtn.addEventListener('click', function () { go(index + 1, true); });
 
   frames.forEach(function (frame, i) {
@@ -126,7 +127,7 @@
   stage.tabIndex = 0;
   stage.setAttribute('aria-label', '相片轮播，一直在自动转，也可以按左右方向键自己翻');
   stage.addEventListener('keydown', function (ev) {
-    if (ev.key === 'ArrowLeft') { ev.preventDefault(); if (index <= 0) { index = real; render(false); } go(index - 1, true); }
+    if (ev.key === 'ArrowLeft') { ev.preventDefault(); go(index - 1, true); }
     else if (ev.key === 'ArrowRight') { ev.preventDefault(); go(index + 1, true); }
   });
 
@@ -173,10 +174,8 @@
     if (!locked) return;
     var dx = ev.changedTouches[0].clientX - sx;
     track.style.transition = '';
-    if (Math.abs(dx) > 46) {
-      if (dx > 0 && index <= 0) { index = real; render(false); }
-      go(index + (dx < 0 ? 1 : -1), true);
-    } else render(true);
+    if (Math.abs(dx) > 46) go(index + (dx < 0 ? 1 : -1), true);
+    else render(true);
   }, { passive: true });
 
   /* 图片一张张加载完，宽度会变，重新对中一次 */
@@ -184,7 +183,7 @@
   function queueLayout() {
     if (relayout) window.clearTimeout(relayout);
     relayout = window.setTimeout(function () {
-      if (index >= real) index -= real;
+      settle();
       render(false);
     }, 60);
   }
