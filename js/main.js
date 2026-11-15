@@ -639,10 +639,10 @@
 
   /* ===== 甜度分布小图表 ===== */
   const BUCKETS = [
-    { label: '8.7 分以下', min: -1, max: 8.7, color: '#F6C9BD' },
-    { label: '8.7–9.1', min: 8.7, max: 9.1, color: '#EFA3A6' },
-    { label: '9.1–9.5', min: 9.1, max: 9.5, color: '#DF6189' },
-    { label: '9.5 分以上', min: 9.5, max: 999, color: '#8F4E6C' }
+    { label: '9 分以下', min: -1, max: 9, color: '#F6C9BD' },
+    { label: '9–9.2', min: 9, max: 9.2, color: '#EFA3A6' },
+    { label: '9.2–9.4', min: 9.2, max: 9.4, color: '#DF6189' },
+    { label: '9.4 分以上', min: 9.4, max: 999, color: '#8F4E6C' }
   ];
 
   function sweetStats() {
