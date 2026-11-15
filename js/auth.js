@@ -5,7 +5,7 @@
    把打印出来的 16 位字符串贴进 passHash。
    密码请用纯英文数字：emoji 这类字符在不同环境的编码方式不一样，算出来的值会对不上。 */
 var SUGAR_AUTH = {
-  user: 'mupa',
+  user: 'wusha',
   salt: 'sugar-lane-2026-1107',
   passHash: 'a74aa49adf78e108'
 };
