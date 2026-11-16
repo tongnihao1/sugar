@@ -26,7 +26,7 @@
   function pickTarget() {
     var to = '';
     try { to = new URLSearchParams(location.search).get('to') || ''; } catch (e) { to = ''; }
-    if (!/^(index\.html|page-gallery\.html|museum\/(index|page-[a-z-]+)\.html)$/.test(to)) {
+    if (!/^(index\.html|page-gallery\.html|page-friends\.html|page-profile\.html|museum\/(index|page-[a-z-]+)\.html)$/.test(to)) {
       to = 'index.html';
     }
     return to;
@@ -159,6 +159,8 @@
 
     try {
       sessionStorage.setItem(SUGAR_KEY, SUGAR_OPEN);
+      /* 记住是谁进来的，朋友圈发图和评论时用它当昵称 */
+      sessionStorage.setItem(SUGAR_USER, u);
     } catch (e) {
       say('浏览器把本地存储关掉了，登录状态存不下来', 'bad');
       return;

@@ -38,3 +38,5 @@ function sugarHashPassword(pw) {
 /* 其它页面共用这把钥匙：登录成功后写进 sessionStorage */
 var SUGAR_KEY = 'sugar-lane:key';
 var SUGAR_OPEN = 'open';
+/* 登录成功时记下这次是谁进来的，评论和发图要用它当昵称 */
+var SUGAR_USER = 'sugar-lane:user';

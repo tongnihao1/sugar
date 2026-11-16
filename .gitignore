@@ -6,3 +6,6 @@ _backup/
 Thumbs.db
 .DS_Store
 image/hy_img/
+
+# 本地测试用的临时页面，不进仓库
+_test/

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>糖霜小站 · 我的主页</title>
+<script>/* sugar-lane gate */try{if(sessionStorage.getItem('sugar-lane:key')!=='open'){var t=(location.pathname.split('/').pop()||'index.html');location.replace('login.html?to='+encodeURIComponent(t));}}catch(e){}</script>
+<meta name="description" content="糖霜小站的个人主页：看看自己贴过哪些照片、回过哪些话。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23FCE3EA'/%3E%3Cpath d='M16 24.5s-8.4-5.4-8.4-11.4A4.7 4.7 0 0116 10a4.7 4.7 0 018.4 3.1c0 6-8.4 11.4-8.4 11.4z' fill='%23DF6189'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://miaoda.feishu.cn" crossorigin>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=ZCOOL+XiaoWei&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="css/style.css?v=20251117a">
+<link rel="stylesheet" href="css/friends.css?v=20251117a">
+<link rel="stylesheet" href="css/profile.css?v=20251117a">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ===== 顶部细条 ===== -->
+<nav class="fri-bar">
+  <div class="fri-bar-in">
+    <a class="fri-brand" href="index.html">糖霜小站</a>
+    <span class="fri-who">正在以 <b id="whoami">…</b> 的身份看</span>
+    <div class="fri-nav">
+      <a href="index.html">首页</a>
+      <a href="page-gallery.html">照片桌</a>
+      <a href="page-friends.html">朋友圈</a>
+      <a class="is-here" href="page-profile.html">我的主页</a>
+      <button type="button" class="fri-out" id="logoutBtn">退出</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- ===== 身份卡 ===== -->
+  <section class="prof-head">
+    <div class="prof-wrap">
+      <div class="prof-card">
+        <span class="tape prof-tape" aria-hidden="true"></span>
+        <div class="prof-id">
+          <span class="prof-avatar" id="profAv">?</span>
+          <div class="prof-id-text">
+            <h1 class="prof-name" id="profName">…</h1>
+            <p class="prof-meta" id="profMeta">正在打开你的糖罐…</p>
+          </div>
+        </div>
+        <div class="prof-stats">
+          <div class="prof-stat">
+            <b id="statMoments">—</b>
+            <span>贴过的照片</span>
+          </div>
+          <div class="prof-stat">
+            <b id="statComments">—</b>
+            <span>回过的话</span>
+          </div>
+          <div class="prof-stat">
+            <b id="statReceived">—</b>
+            <span>收到的话</span>
+          </div>
+        </div>
+        <div class="prof-actions">
+          <a class="btn btn-primary" href="page-friends.html">去贴一张</a>
+          <a class="btn btn-ghost" href="index.html">回首页</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 我贴过的 ===== -->
+  <section class="prof-section">
+    <div class="prof-wrap">
+      <div class="prof-section-head">
+        <h2>我贴过的</h2>
+        <span class="counter" id="myCount">—</span>
+      </div>
+      <div class="prof-grid" id="profGrid">
+        <p class="prof-loading">正在翻你的相册…</p>
+      </div>
+      <p class="prof-empty" id="profEmpty" hidden>
+        还没有贴过照片。去<a href="page-friends.html">朋友圈</a>贴第一张，这里就有东西了。
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 别人在我这儿说的话 ===== -->
+  <section class="prof-section">
+    <div class="prof-wrap">
+      <div class="prof-section-head">
+        <h2>别人在我这儿说的话</h2>
+      </div>
+      <ul class="prof-received" id="profReceived">
+        <li class="prof-loading">正在听…</li>
+      </ul>
+      <p class="prof-empty" id="recvEmpty" hidden>
+        还没有人在这儿的照片下回过话。安静也是一种甜。
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 我回过的话 ===== -->
+  <section class="prof-section">
+    <div class="prof-wrap">
+      <div class="prof-section-head">
+        <h2>我说过的话</h2>
+      </div>
+      <ul class="prof-said" id="profSaid">
+        <li class="prof-loading">正在数…</li>
+      </ul>
+      <p class="prof-empty" id="saidEmpty" hidden>
+        还没回过谁的话。下次看完照片，记得留一句。
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="fri-foot">
+  <div class="fri-wrap">
+    <p>这些数字只算你自己这一份，别人看不到。</p>
+  </div>
+</footer>
+
+<div class="fri-toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/auth.js?v=20251117a"></script>
+<script src="js/profile.js?v=20251117a"></script>
+</body>
+</html>

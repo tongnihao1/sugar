@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>糖霜小站 · 今天的甜，分你一半</title>
+<script>/* sugar-lane gate */try{if(sessionStorage.getItem('sugar-lane:key')!=='open'){var t=(location.pathname.split('/').pop()||'index.html');location.replace('login.html?to='+encodeURIComponent(t));}}catch(e){}</script>
+<meta name="description" content="糖霜小站的朋友圈：谁都可以放一张照片、说一句今天的事，看完记得回一句。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23FCE3EA'/%3E%3Cpath d='M16 24.5s-8.4-5.4-8.4-11.4A4.7 4.7 0 0116 10a4.7 4.7 0 018.4 3.1c0 6-8.4 11.4-8.4 11.4z' fill='%23DF6189'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://miaoda.feishu.cn" crossorigin>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=ZCOOL+XiaoWei&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="css/style.css?v=20251117a">
+<link rel="stylesheet" href="css/friends.css?v=20251117a">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ===== 顶部细条 ===== -->
+<nav class="fri-bar">
+  <div class="fri-bar-in">
+    <a class="fri-brand" href="index.html">糖霜小站</a>
+    <span class="fri-who">正在以 <b id="whoami">…</b> 的身份看</span>
+    <div class="fri-nav">
+      <a href="index.html">首页</a>
+      <a href="page-gallery.html">照片桌</a>
+      <a class="is-here" href="page-friends.html">朋友圈</a>
+      <a href="page-profile.html">我的主页</a>
+      <button type="button" class="fri-out" id="logoutBtn">退出</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- ===== 开场 ===== -->
+  <section class="fri-hero">
+    <div class="fri-wrap">
+      <p class="fri-kicker">今天也发了点甜的</p>
+      <h1 class="fri-title">今天的甜<br>分你<span class="sweet">一半</span></h1>
+      <p class="fri-lede">
+        谁都可以往这儿放一张照片、说一句今天的事。看完别急着走，回他一句——话掉在地上会凉。
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 发一条 ===== -->
+  <section class="fri-compose-wrap">
+    <div class="fri-wrap">
+      <form class="fri-compose" id="composeForm" autocomplete="off">
+        <span class="tape fri-tape" aria-hidden="true"></span>
+        <h2 class="fri-compose-title">贴一张上去</h2>
+
+        <div class="fri-pick" id="pickZone" role="button" tabindex="0" aria-label="选择一张照片">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="fri-pick-icon">
+            <path d="M4 16.5V7a2 2 0 012-2h12a2 2 0 012 2v9.5" />
+            <path d="M4 16.5A2.5 2.5 0 006.5 19h11a2.5 2.5 0 002.5-2.5" />
+            <circle cx="9" cy="9.5" r="1.4" />
+            <path d="M5 17l4.5-4.5 3.2 3.2L16 12l3 3" />
+          </svg>
+          <p class="fri-pick-main">点一下选照片，或者把图拖进来</p>
+          <p class="fri-pick-sub">会压到长边 1400 像素再上传，省点流量</p>
+          <input type="file" accept="image/*" id="fileInput" hidden>
+        </div>
+
+        <div class="fri-preview" id="previewWrap" hidden>
+          <img id="previewImg" alt="待发布的照片预览">
+          <div class="fri-preview-meta">
+            <span id="previewSize"></span>
+            <button type="button" class="fri-mini" id="clearPick">换一张</button>
+          </div>
+        </div>
+
+        <label class="fri-label" for="captionInput">配一句</label>
+        <textarea id="captionInput" class="fri-textarea" rows="2" maxlength="1000"
+          placeholder="今天这张，是因为什么按下的快门？"></textarea>
+
+        <div class="fri-compose-foot">
+          <span class="fri-count" id="captionCount">0 / 1000</span>
+          <button class="btn btn-primary fri-post-btn" type="submit" id="publishBtn">贴上去</button>
+        </div>
+        <p class="fri-hint" id="composeHint" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== 图片流 ===== -->
+  <section class="fri-stream-wrap">
+    <div class="fri-wrap">
+      <div class="fri-stream-head">
+        <h2>大家的糖纸</h2>
+        <span class="counter" id="streamCount">—</span>
+      </div>
+      <div class="fri-stream" id="stream" aria-live="polite">
+        <p class="fri-loading">正在把糖纸翻出来…</p>
+      </div>
+      <div class="fri-more-wrap">
+        <button type="button" class="btn btn-ghost fri-more" id="moreBtn" hidden>再往前翻翻</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="fri-foot">
+  <div class="fri-wrap">
+    <p>照片和话都存在自己的小库里，只有这个站的人看得见。</p>
+  </div>
+</footer>
+
+<div class="fri-toast" id="toast" role="status" aria-live="polite"></div>
+
+<template id="postTpl">
+  <article class="post">
+    <header class="post-head">
+      <span class="post-avatar" data-av>w</span>
+      <div class="post-meta">
+        <b class="post-name" data-name>某人</b>
+        <span class="post-time" data-time>刚刚</span>
+      </div>
+      <button type="button" class="post-del" data-del title="删掉这条" hidden>删掉</button>
+    </header>
+    <p class="post-caption" data-caption></p>
+    <figure class="post-photo"><img data-photo alt=""></figure>
+    <div class="post-talk">
+      <ul class="talk-list" data-talklist></ul>
+      <form class="talk-form" data-talkform autocomplete="off">
+        <input type="text" class="talk-input" data-talkinput maxlength="800" placeholder="回一句…">
+        <button type="submit" class="talk-send" data-talksend>发送</button>
+      </form>
+      <p class="talk-hint" data-talkhint role="status"></p>
+    </div>
+  </article>
+</template>
+
+<script src="js/auth.js?v=20251117a"></script>
+<script src="js/friends.js?v=20251117a"></script>
+</body>
+</html>
