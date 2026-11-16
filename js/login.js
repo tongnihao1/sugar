@@ -147,7 +147,8 @@
       return;
     }
 
-    if (u !== SUGAR_AUTH.user || hash !== SUGAR_AUTH.passHash) {
+    var row = sugarFindAccount(u);
+    if (!row || hash !== row.passHash) {
       fails += 1;
       drawCaptcha();
       codeInput.value = '';

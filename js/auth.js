@@ -1,14 +1,27 @@
 /* sugar-lane · 口令
    口令以加盐哈希存放，页面源码里不会出现明文。
-   要换口令：先改下面的 salt，再在浏览器控制台执行
+   一个账号一条记录；账号名各不相同，口令可以一样，也可以各用各的。
+   要加账号或换口令：在浏览器控制台执行
        sugarHashPassword('你的新密码')
-   把打印出来的 16 位字符串贴进 passHash。
-   密码请用纯英文数字：emoji 这类字符在不同环境的编码方式不一样，算出来的值会对不上。 */
+   把打印出来的 16 位字符串贴进对应那条的 passHash。
+   口令请用纯英文数字：emoji 这类字符在不同环境的编码方式不一样，算出来的值会对不上。
+   改动 salt 会让所有账号的 passHash 一起失效，要换就全部重算。 */
 var SUGAR_AUTH = {
-  user: 'wusha',
   salt: 'sugar-lane-2026-1107',
-  passHash: 'a74aa49adf78e108'
+  accounts: [
+    { user: 'wusha', passHash: 'a74aa49adf78e108' },
+    { user: 'luoyi', passHash: 'a74aa49adf78e108' }
+  ]
 };
+
+/* 按账号名取出那一行，没有就返回空 */
+function sugarFindAccount(name) {
+  var list = SUGAR_AUTH.accounts;
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].user === name) return list[i];
+  }
+  return null;
+}
 
 /* FNV-1a 64 位，纯 JS 同步实现，不依赖 Web Crypto，任何浏览器都能算 */
 function sugarHashPassword(pw) {
